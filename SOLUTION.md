@@ -1,7 +1,7 @@
 # Lab Solution: Host a Static Website on Amazon S3
 
-**Student Name:** ___________________________  
-**Date:** ___________________________  
+**Student Name:** Faramarz Karamizadeh  
+**Date:** 09.07.2026  
 **Lab Completion Time:** ___________ minutes
 
 ---
@@ -10,9 +10,9 @@
 
 ### Bucket Information
 
-**Bucket Name:** ___________________________
+**Bucket Name:** my-static-website-faramarz-2026
 
-**Region:** ___________________________
+**Region:** us-east-1
 
 **Bucket Website Endpoint URL:**
 ```
@@ -28,13 +28,13 @@ ___________________________________________________________
 
 ### Configuration Details
 
-**Index Document:** ___________________________
-
-**Error Document:** ___________________________
+**Index Document:** index.html
+**Error Document:** Error.html
 
 **Screenshot 2: Static Website Hosting Settings**
 ![Static Hosting Config](screenshots/02-static-hosting-config.png)
-
+**Bucket website endpoint:**
+https://my-static-website-faramarz-2026.s3-website-us-east-1.amazonaws.com/
 ---
 
 ## Part 3: Website Files
@@ -42,11 +42,11 @@ ___________________________________________________________
 ### Files Created
 
 List the files you created:
-1. ___________________________
-2. ___________________________
-3. ___________________________
+1. index.html
+2. error.html
+3. styles.css
 
-**Did you customize the HTML/CSS?** (Yes/No): ______
+**Did you customize the HTML/CSS?** (No): ______
 
 **If yes, describe your customizations:**
 ```
@@ -67,15 +67,16 @@ _____________________________________________________________
 **Paste your complete bucket policy here:**
 ```json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      
-      
-      
-      
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::my-static-website-faramarz-2026/*"
+        }
+    ]
 }
 ```
 
@@ -90,12 +91,12 @@ _____________________________________________________________
 
 **Website URL (from endpoint):**
 ```
-___________________________________________________________
+http://my-static-website-faramarz-2026.s3-website-us-east-1.amazonaws.com/
 ```
 
-**Did the website load successfully?** (Yes/No): ______
+**Did the website load successfully?** (Yes/No):Yes
 
-**Did the CSS styling apply correctly?** (Yes/No): ______
+**Did the CSS styling apply correctly?** (Yes/No): Yes
 
 **Screenshot 5: Working Website**
 ![Website Live](screenshots/05-website-live.png)
@@ -104,10 +105,10 @@ ___________________________________________________________
 
 **Test URL used:**
 ```
-___________________________________________________________
+http://my-static-website-faramarz-2026.s3-website-us-east-1.amazonaws.com/nonexistent.html
 ```
 
-**Did custom error page display?** (Yes/No): ______
+**Did custom error page display?** (Yes/No): Yes
 
 **Screenshot 6: Custom 404 Error Page**
 ![Error Page](screenshots/06-error-page.png)
@@ -120,7 +121,9 @@ ___________________________________________________________
 
 ```bash
 # Bucket creation
-
+aws s3 website s3://my-static-website-[your-initials]-2026/ \
+  --index-document index.html \
+  --error-document error.html
 
 # Enable website hosting
 
@@ -160,46 +163,45 @@ _____________________________________________________________
 
 **Your answer:**
 ```
-_____________________________________________________________
-_____________________________________________________________
-_____________________________________________________________
-_____________________________________________________________
+When comparing Amazon S3 static website hosting to traditional web servers (like an EC2 instance, Apache, or Nginx running on a Virtual Private Server), the advantages boil down to cost, maintenance, and scalability.
+-Zero Server Maintenance
+-Infinite & Automatic Scaling
+-Lower Costs
+-High Availability and Durability
 ```
 
 ### 2. Why is a bucket policy necessary for public website access?
 
 **Your answer:**
 ```
-_____________________________________________________________
-_____________________________________________________________
-_____________________________________________________________
+By default, Amazon S3 is designed to be secure by default. When you create a new S3 bucket, it is completely private—meaning only you (the account owner) have permission to read or write files to it.
+
+Even when you flip the switch to enable Static Website Hosting, S3 does not automatically make your files public. This is where a bucket policy comes in.
 ```
 
 ### 3. What are the limitations of S3 static website hosting?
 
 **Your answer:**
 ```
-_____________________________________________________________
-_____________________________________________________________
-_____________________________________________________________
+While S3 static website hosting is incredibly powerful, cost-effective, and scales infinitely, it has strict technical boundaries. Because S3 is an object storage service and not a true web server, you cannot treat it like traditional hosting.
+-No Server-Side Code Execution
+-No Native HTTPS / SSL Support
+-
 ```
 
 ### 4. When would you NOT use S3 for website hosting?
 
 **Your answer:**
 ```
-_____________________________________________________________
-_____________________________________________________________
-_____________________________________________________________
+-When my Site Requires Server-Side Rendering (SSR).
+-When Using Next.js or Nuxt.js with Dynamic Features.
+-Intranets with Rapidly Changing internal Content
 ```
-
 ### 5. How does S3 static hosting fit into cost optimization strategies?
 
 **Your answer:**
 ```
-_____________________________________________________________
-_____________________________________________________________
-_____________________________________________________________
+S3 static hosting eliminates fixed hourly server costs by charging me only for the exact storage and traffic my site uses. It handles massive traffic spikes automatically without needing expensive infrastructure.
 ```
 
 ---
@@ -220,9 +222,9 @@ _____________________________________________________________
 
 ## Cleanup Confirmation
 
-- [ ] Emptied S3 bucket
-- [ ] Deleted S3 bucket
-- [ ] Verified no resources remain
+- [x ] Emptied S3 bucket
+- [ x] Deleted S3 bucket
+- [x ] Verified no resources remain
 
 **Cleanup CLI commands used:**
 ```bash
@@ -242,12 +244,12 @@ _____________________________________________________________
 
 | Concept | Rating | Notes |
 |---------|--------|-------|
-| S3 bucket creation | ___/5 | |
-| Static website hosting configuration | ___/5 | |
-| Bucket policies and public access | ___/5 | |
-| Uploading and managing S3 objects | ___/5 | |
-| S3 website endpoints | ___/5 | |
-| HTML/CSS basics | ___/5 | |
+| S3 bucket creation | ___/5 |5 |
+| Static website hosting configuration | ___/5 |5 |
+| Bucket policies and public access | ___/5 |5 |
+| Uploading and managing S3 objects | ___/5 | 5|
+| S3 website endpoints | ___/5 | 5|
+| HTML/CSS basics | ___/5 | 5|
 
 ---
 
@@ -280,8 +282,8 @@ List any documentation, tutorials, or resources you used:
 
 ---
 
-**Lab Status:** ☐ Complete ☐ Needs Revision
+**Lab Status:** ❎ Complete ☐ Needs Revision
 
-**Total Time Spent:** ________ minutes
+**Total Time Spent:** 70 minutes
 
-**Submission Date:** ___________________________
+**Submission Date:** 09.07.2026
